@@ -24,9 +24,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5AF37BAC2F5F8B5D00FB4248 /* WaveList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaveList.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		5AF37BBB2F5F8B5E00FB4248 /* WaveListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaveListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5AF37BC52F5F8B5E00FB4248 /* WaveListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaveListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5AF37BAC2F5F8B5D00FB4248 /* WaveList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = WaveList.app; path = "/Users/khya24wv/Desktop/WaveList/build/Debug-iphoneos/WaveList.app"; sourceTree = "<absolute>"; };
+		5AF37BBB2F5F8B5E00FB4248 /* WaveListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = WaveListTests.xctest; path = "/Users/khya24wv/Desktop/WaveList/build/Debug-iphoneos/WaveList.app/PlugIns/WaveListTests.xctest"; sourceTree = "<absolute>"; };
+		5AF37BC52F5F8B5E00FB4248 /* WaveListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = WaveListUITests.xctest; path = "/Users/khya24wv/Desktop/WaveList/build/Debug-iphoneos/WaveListUITests-Runner.app/PlugIns/WaveListUITests.xctest"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -43,6 +43,21 @@
 		5AF37BC82F5F8B5E00FB4248 /* WaveListUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = WaveListUITests;
+			sourceTree = "<group>";
+		};
+		5AF37BDC2F5F8C1B00FB4248 /* Views */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5AF37BDE2F5F8C4D00FB4248 /* Networking */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		5AF37BE32F5F8CBC00FB4248 /* ViewModels */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -78,18 +93,10 @@
 				5AF37BAE2F5F8B5D00FB4248 /* WaveList */,
 				5AF37BBE2F5F8B5E00FB4248 /* WaveListTests */,
 				5AF37BC82F5F8B5E00FB4248 /* WaveListUITests */,
-				5AF37BAD2F5F8B5D00FB4248 /* Products */,
+				5AF37BDC2F5F8C1B00FB4248 /* Views */,
+				5AF37BDE2F5F8C4D00FB4248 /* Networking */,
+				5AF37BE32F5F8CBC00FB4248 /* ViewModels */,
 			);
-			sourceTree = "<group>";
-		};
-		5AF37BAD2F5F8B5D00FB4248 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				5AF37BAC2F5F8B5D00FB4248 /* WaveList.app */,
-				5AF37BBB2F5F8B5E00FB4248 /* WaveListTests.xctest */,
-				5AF37BC52F5F8B5E00FB4248 /* WaveListUITests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -109,6 +116,9 @@
 			);
 			fileSystemSynchronizedGroups = (
 				5AF37BAE2F5F8B5D00FB4248 /* WaveList */,
+				5AF37BDC2F5F8C1B00FB4248 /* Views */,
+				5AF37BDE2F5F8C4D00FB4248 /* Networking */,
+				5AF37BE32F5F8CBC00FB4248 /* ViewModels */,
 			);
 			name = WaveList;
 			packageProductDependencies = (
@@ -196,7 +206,7 @@
 			mainGroup = 5AF37BA32F5F8B5D00FB4248;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 5AF37BAD2F5F8B5D00FB4248 /* Products */;
+			productRefGroup = 5AF37BA32F5F8B5D00FB4248;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
