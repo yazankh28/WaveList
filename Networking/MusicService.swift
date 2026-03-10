@@ -3,7 +3,7 @@ import Foundation
 class MusicService {
     static let shared = MusicService()
     
-    private let apiKey = "c4b6d8f7e9a2b3c1d5e6f7a8b9c0d1e2"
+    private let apiKey = "8bc35f9d6ab87c0739ba53fea2de21b0"
     private let baseURL = "https://ws.audioscrobbler.com/2.0/"
     
     func fetchTopTracks() async throws -> [Track] {
