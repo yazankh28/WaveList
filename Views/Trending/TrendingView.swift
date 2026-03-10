@@ -2,6 +2,17 @@ import SwiftUI
 
 struct TrendingView: View {
     @StateObject private var viewModel = TrendingViewModel()
+    @State private var searchText = ""
+    
+    var filteredTracks: [Track] {
+        if searchText.isEmpty {
+            return viewModel.tracks
+        }
+        return viewModel.tracks.filter {
+            $0.name.localizedCaseInsensitiveContains(searchText) ||
+            $0.artist.name.localizedCaseInsensitiveContains(searchText)
+        }
+    }
     
     var body: some View {
         NavigationStack {
@@ -9,32 +20,49 @@ struct TrendingView: View {
                 Color.black.ignoresSafeArea()
                 
                 if viewModel.isLoading {
-                    ProgressView()
-                        .tint(.white)
+                    VStack(spacing: 16) {
+                        ProgressView()
+                            .tint(.orange)
+                            .scaleEffect(1.5)
+                        Text("Laddar trender...")
+                            .foregroundStyle(.gray)
+                            .font(.subheadline)
+                    }
                 } else if let error = viewModel.errorMessage {
-                    VStack {
-                        Text("⚠️ \(error)")
+                    VStack(spacing: 16) {
+                        Text("⚠️")
+                            .font(.system(size: 50))
+                        Text(error)
                             .foregroundStyle(.white)
+                            .multilineTextAlignment(.center)
                         Button("Försök igen") {
                             Task { await viewModel.fetchTracks() }
                         }
-                        .foregroundStyle(.orange)
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 10)
+                        .background(Color.orange)
+                        .cornerRadius(20)
                     }
+                    .padding()
                 } else {
-                    List {
-                        ForEach(Array(viewModel.tracks.enumerated()), id: \.offset) { index, track in
-                            NavigationLink(destination: SongDetailView(track: track)) {
-                                TrackRowView(track: track, rank: index + 1)
+                    ScrollView {
+                        LazyVStack(spacing: 10) {
+                            ForEach(Array(filteredTracks.enumerated()), id: \.offset) { index, track in
+                                NavigationLink(destination: SongDetailView(track: track)) {
+                                    TrackRowView(track: track, rank: index + 1)
+                                }
+                                .buttonStyle(.plain)
                             }
-                            .listRowBackground(Color.black)
                         }
+                        .padding(.horizontal)
+                        .padding(.top, 8)
                     }
-                    .listStyle(.plain)
-                    .scrollContentBackground(.hidden)
                 }
             }
             .navigationTitle("Trending 🔥")
             .navigationBarTitleDisplayMode(.large)
+            .searchable(text: $searchText, prompt: "Sök låt eller artist...")
             .preferredColorScheme(.dark)
             .task {
                 await viewModel.fetchTracks()
