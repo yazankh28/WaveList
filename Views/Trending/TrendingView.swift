@@ -64,6 +64,12 @@ struct TrendingView: View {
             .navigationBarTitleDisplayMode(.large)
             .searchable(text: $searchText, prompt: "Sök låt eller artist...")
             .preferredColorScheme(.dark)
+            .toolbar {
+                NavigationLink(destination: NotificationSettingsView()) {
+                    Image(systemName: "bell")
+                        .foregroundStyle(.orange)
+                }
+            }
             .task {
                 await viewModel.fetchTracks()
             }
