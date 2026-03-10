@@ -11,14 +11,14 @@ struct SavedView: View {
         ZStack {
             Color.black.ignoresSafeArea()
             
-            if savedSongs.isEmpty {
+            if savedSongs.isEmpty && savedArtists.isEmpty {
                 VStack(spacing: 16) {
                     Text("🎵")
                         .font(.system(size: 60))
-                    Text("Inga sparade låtar ännu")
+                    Text("Inga sparade än")
                         .font(.headline)
                         .foregroundStyle(.white)
-                    Text("Gå till Trending och spara dina favoriter!")
+                    Text("Gå till Trending eller Sök och spara dina favoriter!")
                         .font(.subheadline)
                         .foregroundStyle(.gray)
                         .multilineTextAlignment(.center)
@@ -26,43 +26,48 @@ struct SavedView: View {
                 }
             } else {
                 List {
-                    Section {
-                        ForEach(savedSongs) { song in
-                            HStack(spacing: 12) {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .fill(Color.purple.opacity(0.3))
-                                        .frame(width: 44, height: 44)
-                                    Text("🎵")
-                                        .font(.title3)
+                    if !savedSongs.isEmpty {
+                        Section {
+                            ForEach(savedSongs) { song in
+                                HStack(spacing: 12) {
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .fill(LinearGradient(
+                                                colors: [.purple.opacity(0.6), .blue.opacity(0.4)],
+                                                startPoint: .topLeading,
+                                                endPoint: .bottomTrailing))
+                                            .frame(width: 44, height: 44)
+                                        Text("🎵")
+                                            .font(.title3)
+                                    }
+                                    
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(song.name)
+                                            .font(.headline)
+                                            .foregroundStyle(.white)
+                                            .lineLimit(1)
+                                        Text(song.artistName)
+                                            .font(.subheadline)
+                                            .foregroundStyle(.gray)
+                                            .lineLimit(1)
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "heart.fill")
+                                        .foregroundStyle(.orange)
                                 }
-                                
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text(song.name)
-                                        .font(.headline)
-                                        .foregroundStyle(.white)
-                                        .lineLimit(1)
-                                    Text(song.artistName)
-                                        .font(.subheadline)
-                                        .foregroundStyle(.gray)
-                                        .lineLimit(1)
+                                .listRowBackground(Color.white.opacity(0.05))
+                            }
+                            .onDelete { indexSet in
+                                for index in indexSet {
+                                    viewModel.deleteSong(savedSongs[index], context: context)
                                 }
-                                
-                                Spacer()
-                                
-                                Image(systemName: "heart.fill")
-                                    .foregroundStyle(.orange)
                             }
-                            .listRowBackground(Color.white.opacity(0.05))
+                        } header: {
+                            Text("Sparade låtar")
+                                .foregroundStyle(.orange)
                         }
-                        .onDelete { indexSet in
-                            for index in indexSet {
-                                viewModel.deleteSong(savedSongs[index], context: context)
-                            }
-                        }
-                    } header: {
-                        Text("Sparade låtar")
-                            .foregroundStyle(.orange)
                     }
                     
                     if !savedArtists.isEmpty {
@@ -72,7 +77,10 @@ struct SavedView: View {
                                     HStack(spacing: 12) {
                                         ZStack {
                                             Circle()
-                                                .fill(Color.orange.opacity(0.3))
+                                                .fill(LinearGradient(
+                                                    colors: [.orange.opacity(0.6), .purple.opacity(0.4)],
+                                                    startPoint: .top,
+                                                    endPoint: .bottom))
                                                 .frame(width: 44, height: 44)
                                             Text("🎤")
                                                 .font(.title3)
@@ -82,7 +90,7 @@ struct SavedView: View {
                                             Text(artist.name)
                                                 .font(.headline)
                                                 .foregroundStyle(.white)
-                                            Text("\(artist.songs.count) sparade låtar")
+                                            Text(artist.songs.isEmpty ? "Sparad artist" : "\(artist.songs.count) sparade låtar")
                                                 .font(.subheadline)
                                                 .foregroundStyle(.gray)
                                         }
@@ -90,8 +98,13 @@ struct SavedView: View {
                                 }
                                 .listRowBackground(Color.white.opacity(0.05))
                             }
+                            .onDelete { indexSet in
+                                for index in indexSet {
+                                    context.delete(savedArtists[index])
+                                }
+                            }
                         } header: {
-                            Text("Artister")
+                            Text("Sparade artister")
                                 .foregroundStyle(.orange)
                         }
                     }
@@ -103,5 +116,9 @@ struct SavedView: View {
         .navigationTitle("Sparade ❤️")
         .navigationBarTitleDisplayMode(.large)
         .preferredColorScheme(.dark)
+        .toolbar {
+            EditButton()
+                .foregroundStyle(.orange)
+        }
     }
 }

@@ -1,8 +1,15 @@
 import SwiftUI
+import SwiftData
 
 struct ArtistView: View {
     let artistName: String
     @StateObject private var viewModel = ArtistViewModel()
+    @Environment(\.modelContext) private var context
+    @Query private var savedArtists: [SavedArtist]
+    
+    var isSaved: Bool {
+        savedArtists.contains(where: { $0.name == artistName })
+    }
     
     var body: some View {
         ZStack {
@@ -63,6 +70,30 @@ struct ArtistView: View {
                         .padding()
                         .background(Color.white.opacity(0.05))
                         .cornerRadius(14)
+                        
+                        // Spara artist-knapp
+                        Button {
+                            if isSaved {
+                                if let savedArtist = savedArtists.first(where: { $0.name == artistName }) {
+                                    context.delete(savedArtist)
+                                }
+                            } else {
+                                let newArtist = SavedArtist(name: artist.name, artistURL: artist.url)
+                                context.insert(newArtist)
+                            }
+                        } label: {
+                            HStack {
+                                Image(systemName: isSaved ? "star.fill" : "star")
+                                Text(isSaved ? "Sparad – tryck för att ta bort" : "Spara")
+                            }
+                            .font(.headline)
+                            .foregroundStyle(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(isSaved ? Color.gray : Color.orange)
+                            .cornerRadius(14)
+                            .padding(.horizontal)
+                        }
                         
                         VStack(alignment: .leading, spacing: 10) {
                             Text("Om artisten")

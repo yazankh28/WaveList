@@ -8,7 +8,7 @@ struct SearchTrackDetailView: View {
     @StateObject private var savedViewModel = SavedViewModel()
     
     var isSaved: Bool {
-        savedSongs.contains(where: { $0.name == track.name })
+        savedSongs.contains(where: { $0.name == track.name && $0.artistName == track.artist })
     }
     
     var body: some View {
@@ -38,9 +38,12 @@ struct SearchTrackDetailView: View {
                             .multilineTextAlignment(.center)
                         
                         NavigationLink(destination: ArtistView(artistName: track.artist)) {
-                            Text(track.artist)
-                                .font(.headline)
-                                .foregroundStyle(.orange)
+                            HStack(spacing: 4) {
+                                Text("🎤")
+                                Text(track.artist)
+                                    .fontWeight(.semibold)
+                            }
+                            .foregroundStyle(.orange)
                         }
                     }
                     .padding(.horizontal)
@@ -60,18 +63,37 @@ struct SearchTrackDetailView: View {
                     .background(Color.white.opacity(0.05))
                     .cornerRadius(16)
                     
+                    // Spara-knapp
                     Button {
-                        if !isSaved {
-                            let t = Track(name: track.name,
-                                        artist: Artist(name: track.artist, url: track.url),
-                                        playcount: track.listeners,
-                                        url: track.url)
-                            savedViewModel.saveSong(t, context: context)
+                        if isSaved {
+                            // Ta bort
+                            if let song = savedSongs.first(where: { $0.name == track.name && $0.artistName == track.artist }) {
+                                savedViewModel.deleteSong(song, context: context)
+                            }
+                        } else {
+                            // Spara
+                            let artists = try? context.fetch(FetchDescriptor<SavedArtist>())
+                            let existingArtist = artists?.first(where: { $0.name == track.artist })
+                            
+                            let artist = existingArtist ?? SavedArtist(name: track.artist, artistURL: track.url)
+                            if existingArtist == nil {
+                                context.insert(artist)
+                            }
+                            
+                            let song = SavedSong(
+                                name: track.name,
+                                artistName: track.artist,
+                                playcount: track.listeners,
+                                trackURL: track.url
+                            )
+                            song.artist = artist
+                            artist.songs.append(song)
+                            context.insert(song)
                         }
                     } label: {
                         HStack {
                             Image(systemName: isSaved ? "heart.fill" : "heart")
-                            Text(isSaved ? "Sparad ✓" : "Spara låt")
+                            Text(isSaved ? "Sparad – tryck för att ta bort" : "Spara låt")
                         }
                         .font(.headline)
                         .foregroundStyle(.white)
