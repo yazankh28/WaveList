@@ -24,9 +24,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5AF37BAC2F5F8B5D00FB4248 /* WaveList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = WaveList.app; path = "/Users/khya24wv/Desktop/WaveList/build/Debug-iphoneos/WaveList.app"; sourceTree = "<absolute>"; };
-		5AF37BBB2F5F8B5E00FB4248 /* WaveListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = WaveListTests.xctest; path = "/Users/khya24wv/Desktop/WaveList/build/Debug-iphoneos/WaveList.app/PlugIns/WaveListTests.xctest"; sourceTree = "<absolute>"; };
-		5AF37BC52F5F8B5E00FB4248 /* WaveListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = WaveListUITests.xctest; path = "/Users/khya24wv/Desktop/WaveList/build/Debug-iphoneos/WaveListUITests-Runner.app/PlugIns/WaveListUITests.xctest"; sourceTree = "<absolute>"; };
+		F01998152F5FC772007BDBB1 /* WaveList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaveList.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F01998162F5FC772007BDBB1 /* WaveListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaveListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F01998172F5FC772007BDBB1 /* WaveListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WaveListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -96,6 +96,9 @@
 				5AF37BDC2F5F8C1B00FB4248 /* Views */,
 				5AF37BDE2F5F8C4D00FB4248 /* Networking */,
 				5AF37BE32F5F8CBC00FB4248 /* ViewModels */,
+				F01998152F5FC772007BDBB1 /* WaveList.app */,
+				F01998162F5FC772007BDBB1 /* WaveListTests.xctest */,
+				F01998172F5FC772007BDBB1 /* WaveListUITests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -124,7 +127,7 @@
 			packageProductDependencies = (
 			);
 			productName = WaveList;
-			productReference = 5AF37BAC2F5F8B5D00FB4248 /* WaveList.app */;
+			productReference = F01998152F5FC772007BDBB1 /* WaveList.app */;
 			productType = "com.apple.product-type.application";
 		};
 		5AF37BBA2F5F8B5E00FB4248 /* WaveListTests */ = {
@@ -147,7 +150,7 @@
 			packageProductDependencies = (
 			);
 			productName = WaveListTests;
-			productReference = 5AF37BBB2F5F8B5E00FB4248 /* WaveListTests.xctest */;
+			productReference = F01998162F5FC772007BDBB1 /* WaveListTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		5AF37BC42F5F8B5E00FB4248 /* WaveListUITests */ = {
@@ -170,7 +173,7 @@
 			packageProductDependencies = (
 			);
 			productName = WaveListUITests;
-			productReference = 5AF37BC52F5F8B5E00FB4248 /* WaveListUITests.xctest */;
+			productReference = F01998172F5FC772007BDBB1 /* WaveListUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
